@@ -1,3 +1,9 @@
-<p>
-  home works!
-</p>
+<div class="card-columns">
+    <div class="card" *ngFor="let canciones of nuevas_canciones">
+        <img class="card-img-top" src={{canciones.images[1].url}} alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">{{canciones.name}}</h5>
+            <span class="badge badge-primary " *ngFor="let artista of canciones.artists">{{artista.name}}</span>
+        </div>
+    </div>
+</div>
