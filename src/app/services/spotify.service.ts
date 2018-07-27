@@ -8,7 +8,7 @@ import { map } from "rxjs/operators"
 export class SpotifyService {
 
   httpBase:string="https://api.spotify.com/v1/";
-  authorization:string="Bearer BQCuLo5mwoopgWXtakjP2uVaKuWF5iXGDS2r84IqvuLs1aWhoyodExvgVxmLi8K6GXLaZ3yEpDfm0fCaRgY"
+  authorization:string="Bearer BQBiHV3L_DVe2TKBzBsH4QRPIvwrW6_w9gbW0kCAGpgfgOM2irtKQiDi0iaQNZt5w0nGoBH7Watn3K477Vk"
 
   constructor(private http:HttpClient) { }
 
@@ -27,12 +27,24 @@ export class SpotifyService {
   
   getArtistas(termino:string){
     const headers= new HttpHeaders({
-      "Authorization":"Bearer BQCuLo5mwoopgWXtakjP2uVaKuWF5iXGDS2r84IqvuLs1aWhoyodExvgVxmLi8K6GXLaZ3yEpDfm0fCaRgY"
-    })
+      "Authorization": this.authorization
+      })
 
     return this.http.get(this.httpBase+`search?q=${termino}&type=artist&limit=10`,{headers})
     .pipe(map((data:any)=>{
         return data.artists.items;
     }));
+  
+  }
+  getArtista(id:string){
+    const headers= new HttpHeaders({
+      "Authorization": this.authorization
+      })
+
+    return this.http.get(this.httpBase+`artists/${id}`,{headers})
+    .pipe(map((data:any)=>{
+        return data;
+    }));
+  
   }
 }
