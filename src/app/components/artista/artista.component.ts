@@ -11,17 +11,33 @@ import { throwMatDialogContentAlreadyAttachedError } from '@angular/material';
 export class ArtistaComponent implements OnInit {
 
   idArtista:any;
-
-    constructor(private activatedRoute:ActivatedRoute,private spotifyService:SpotifyService) {
-    this.activatedRoute.params.subscribe(params=>{
+  artista:any;
+  topTracks:any[];
+  
+  constructor(private activatedRoute:ActivatedRoute,private spotifyService:SpotifyService) {
+      this.activatedRoute.params.subscribe(params=>{
       this.idArtista=params["id"];
     })
    }
 
   ngOnInit() {
+    this.getArtista(); 
+    this.getTopTracks();
+  }
+
+  getArtista(){
     this.spotifyService.getArtista(this.idArtista).subscribe(datos=>{
-      console.log(datos);
-    })
+      this.artista=datos;
+      console.log(this.artista);
+  });
+  }
+
+  getTopTracks(){
+    this.spotifyService.getTopTracks(this.idArtista).subscribe(datos=>{
+      this.topTracks=datos;
+      console.log(this.topTracks);
+  });
   }
 
 }
+  

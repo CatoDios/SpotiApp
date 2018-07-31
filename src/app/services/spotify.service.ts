@@ -8,7 +8,7 @@ import { map } from "rxjs/operators"
 export class SpotifyService {
 
   httpBase:string="https://api.spotify.com/v1/";
-  authorization:string="Bearer BQBiHV3L_DVe2TKBzBsH4QRPIvwrW6_w9gbW0kCAGpgfgOM2irtKQiDi0iaQNZt5w0nGoBH7Watn3K477Vk"
+  authorization:string="Bearer BQC6PqLLIwvhqvUKJODXuZXlCW_bwc1AmEKtyTjIHXKeuQXxa0MPbGSTzn1rblaFws1JDiEEeRcWGscuwRY"
 
   constructor(private http:HttpClient) { }
 
@@ -44,6 +44,18 @@ export class SpotifyService {
     return this.http.get(this.httpBase+`artists/${id}`,{headers})
     .pipe(map((data:any)=>{
         return data;
+    }));
+  
+  }
+  
+  getTopTracks(id:string){
+    const headers= new HttpHeaders({
+      "Authorization": this.authorization
+      })
+
+    return this.http.get(this.httpBase+`artists/${ id }/top-tracks?country=us`,{headers})
+    .pipe(map((data:any)=>{
+        return data.tracks;
     }));
   
   }
